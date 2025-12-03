@@ -1,8 +1,6 @@
 # ninja log v7
-19	468	7731813449064293	CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj	35201636c9c94333
-634	741	7731813455216716	chess-engine.exe	c5a66311fa9a06a0
-17	634	7731813449044345	CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj	38592ef2738070a7
-13	310	7731813514166937	build.ninja	ebb353ccaef271c9
-13	310	7731813514156960	D:/Development/Projects/chess_engine/build/cmake_install.cmake	ebb353ccaef271c9
-3	291	7731813931420913	CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj	38592ef2738070a7
-292	375	7731813934302383	chess-engine.exe	c5a66311fa9a06a0
+4	332	7864625682485620	CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj	c75d2201e522a750
+8	329	7864625682518447	CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj	dabeede69e49301c
+359	452	7864606439354901	chess-engine.exe	33e8ae4ed6243ca6
+13	315	7864627828484166	CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj	82226038472af93a
+315	409	7864627831506617	chess-engine.exe	b2ffbbdddeea9ed7

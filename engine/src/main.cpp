@@ -1,9 +1,10 @@
 #include <iostream>
-#include "board.hpp"
+#include "position.hpp"
 
 int main() {
-    Board board;
-    board.reset();
-    board.print();
+    Position pos;
+    pos.set_start_position();
+    pos.print();
+    
     return 0;
 }

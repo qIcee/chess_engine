@@ -1,34 +1,28 @@
 #pragma once
 #include <cstdint>
 
-enum DirectionOffsets: int8_t {
-    WHITE_FORWARD = 8,
-    BLACK_FORWARD = -8,
 
-    WHITE_LEFT_CAPTURE = 7,
-    WHITE_RIGHT_CAPTURE = 9,
-    BLACK_LEFT_CAPTURE = -7,
-    BLACK_RIGHT_CAPTURE = -9,
+constexpr int NORTH = +8,
+            SOUTH = -8,
+            EAST = +1,
+            WEST = -1,
+            NORTH_EAST = +9,
+            NORTH_WEST = +7,
+            SOUTH_EAST = -7,
+            SOUTH_WEST = -9,
 
-    STRAIGHT_UP = 8,
-    STRAIGHT_DOWN = -8,
-    STRAIGHT_LEFT = -1,
-    STRAIGHT_RIGHT = 1,
-    
-    DIAG_UP_LEFT = 7,
-    DIAG_UP_RIGHT = 9,
-    DIAG_DOWN_LEFT = -7,
-    DIAG_DOWN_RIGHT = -9,
-
-    KNIGHT_UP_LEFT = 16-1,
-    KNIGHT_UP_RIGHT = 16+1,
-    KNIGHT_RIGHT_UP = 2+8,
-    KNIGHT_RIGHT_DOWN = 2-8,
-    KNIGHT_LEFT_UP = -2+8,
-    KNIGHT_LEFT_DOWN = -2-8,
-    KNIGHT_DOWN_RIGHT = -16+1,
-    KNIGHT_DOWN_LEFT = -16-1,
+            WHITE_FORWARD = NORTH,
+            BLACK_FORWARD = SOUTH,
+            WHITE_CAPTURE_LEFT = NORTH_WEST,
+            WHITE_CAPTURE_RIGHT = NORTH_EAST,
+            BLACK_CAPTURE_LEFT = SOUTH_WEST,
+            BLACK_CAPTURE_RIGHT = SOUTH_EAST;
+            
+constexpr int KNIGHT_OFFSETS[8] = {
+    +17, +15, +10, +6,
+    -6, -10, -15, -17
 };
+
 
 inline int to_square(int rank, int file) {
     return rank * 8 + file;

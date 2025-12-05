@@ -12,3 +12,11 @@ void Position::print() const {
     board.print();
     std::cout << (side_to_move == WHITE ? "White" : "Black") << " to move.\n";
 }
+
+Color Position::get_side() const {
+    return side_to_move;
+}
+
+Board Position::get_board() const {
+    return board;
+}

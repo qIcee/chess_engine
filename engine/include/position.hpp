@@ -18,5 +18,7 @@ class Position {
 
         void set_start_position();
         void print() const;
+        Color get_side() const;
+        Board get_board() const;
     
 };

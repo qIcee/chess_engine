@@ -10,6 +10,10 @@ Piece Board::get(int rank, int file) const {
     return squares[rank * 8 + file];
 }
 
+Piece Board::get(int idx) const {
+    return squares[idx];
+}
+
 void Board::set(int rank, int file, Piece piece) {
     if (rank < 0 || rank >= 8 || file < 0 || file >= 8) {
         return; // Do nothing if out of bounds

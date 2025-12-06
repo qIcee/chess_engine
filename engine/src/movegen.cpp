@@ -105,7 +105,7 @@ void generate_knight_moves(const Position& pos, int sq, Piece piece, std::vector
     for (int offset: KNIGHT_OFFSETS) {
         int target_sq = sq + offset;
         if (target_sq < 0 || target_sq >= 64) continue;
-        
+
         int target_file = target_sq % 8;
         Piece target = board.get(target_sq);
         
@@ -114,8 +114,33 @@ void generate_knight_moves(const Position& pos, int sq, Piece piece, std::vector
         if (target == EMPTY) {
             out.push_back(make_move(sq, target_sq, QUIET));
         }
-        if (target != EMPTY && !is_piece_of_side(target, piece_color)) {
+        else if (target != EMPTY && !is_piece_of_side(target, piece_color)) {
             out.push_back(make_move(sq, target_sq, MoveType::CAPTURE));
         }
     }
+}
+
+void generate_king_moves(const Position& pos, int sq, Piece piece, std::vector<uint16_t>& out) {
+    const Board& board = pos.get_board();
+    int file = sq % 8;
+    Color piece_color = is_white(piece) ? WHITE : BLACK;
+
+    for (int offset: KING_OFFSETS) {
+        int target_sq = sq + offset;
+        if (target_sq < 0 || target_sq >= 64) continue;
+    
+        int target_file = target_sq % 8;
+        Piece target = board.get(target_sq);
+        
+        if (abs(target_file-file) > 1) continue;
+
+        if (target == EMPTY) {
+            out.push_back(make_move(sq, target_sq, QUIET));
+        }
+        else if (target != EMPTY && !is_piece_of_side(target, piece_color)) {
+            out.push_back(make_move(sq, target_sq, MoveType::CAPTURE));
+        }
+    }
+
+    // TODO: Castle
 }

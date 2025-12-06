@@ -18,6 +18,10 @@ constexpr int NORTH = +8,
             BLACK_CAPTURE_LEFT = SOUTH_WEST,
             BLACK_CAPTURE_RIGHT = SOUTH_EAST;
             
+constexpr int KING_OFFSETS[8] = {
+    NORTH, SOUTH, EAST, WEST, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
+};
+
 constexpr int KNIGHT_OFFSETS[8] = {
     +17, +15, +10, +6,
     -6, -10, -15, -17

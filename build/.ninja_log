@@ -1,6 +1,19 @@
 # ninja log v7
 4	332	7864625682485620	CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj	c75d2201e522a750
 8	329	7864625682518447	CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj	dabeede69e49301c
-359	452	7864606439354901	chess-engine.exe	33e8ae4ed6243ca6
-13	315	7864627828484166	CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj	82226038472af93a
 315	409	7864627831506617	chess-engine.exe	b2ffbbdddeea9ed7
+13	315	7864627828484166	CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj	82226038472af93a
+18	311	7867354368270865	CMakeFiles/chess-engine.dir/engine/src/movegen.cpp.obj	d593aef9821acc63
+15	349	7867354368241225	CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj	dabeede69e49301c
+12	366	7867354368211008	CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj	c75d2201e522a750
+21	371	7867354368290816	CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj	82226038472af93a
+372	510	7867354371801432	chess-engine.exe	b71af19a040e01c5
+4	362	7867355112769007	CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj	dabeede69e49301c
+362	460	7867355116350369	chess-engine.exe	b71af19a040e01c5
+25	319	7867361355383901	CMakeFiles/chess-engine.dir/engine/src/movegen.cpp.obj	d593aef9821acc63
+19	360	7867361355324065	CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj	c75d2201e522a750
+28	377	7867361355403848	CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj	82226038472af93a
+23	403	7867361355353990	CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj	dabeede69e49301c
+403	503	7867361359163796	chess-engine.exe	b71af19a040e01c5
+19	380	7867362294540171	CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj	dabeede69e49301c
+380	480	7867362298148828	chess-engine.exe	b71af19a040e01c5

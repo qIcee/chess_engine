@@ -1,6 +1,12 @@
 #pragma once
 #include <cstdint>
 
+enum Color {
+    WHITE = 0,
+    BLACK = 1,
+    NO_COLOR = 2
+};
+
 enum Piece : uint8_t {
     EMPTY = 0,
     WP = 1, WN = 2, WB = 3, WR = 4, WQ = 5, WK = 6,

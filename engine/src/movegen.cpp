@@ -72,7 +72,16 @@ void generate_pawn_moves(const Position& pos, int sq, Piece piece, std::vector<u
         int target_sq = sq + forward + file_offset;
         
         Piece target = board.get(target_sq);
-        if (target == EMPTY) continue;
+
+        if (target == EMPTY) {
+            // En passant
+            int en_passant_sq = pos.get_ep_sq();
+            if (en_passant_sq == target_sq) {
+                out.push_back(make_move(sq, target_sq, MoveType::EN_PASSANT));
+            }
+            continue;
+        }
+
         if (is_piece_of_side(target, pawn_side)) continue;
 
         int target_rank = target_sq / 8;
@@ -85,9 +94,6 @@ void generate_pawn_moves(const Position& pos, int sq, Piece piece, std::vector<u
         else {
             out.push_back(make_move(sq, target_sq, MoveType::CAPTURE));
         }
-
-        // En passant
-        
     }
 
     

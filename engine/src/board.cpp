@@ -21,6 +21,13 @@ void Board::set(int rank, int file, Piece piece) {
     squares[rank * 8 + file] = piece;
 }
 
+void Board::set(int idx, Piece piece) {
+    if (idx < 0 || idx > 63) {
+        return; // Do nothing if out of bounds;
+    }
+    squares[idx] = piece;
+}
+
 void Board::reset() {
     // reset board
     for (int i = 0; i < 64; i++) {
@@ -39,6 +46,12 @@ void Board::reset() {
     for (int file = 0; file < 8; ++file) {
         set(7, file, black_back[file]);
         set(6, file, BP);
+    }
+}
+
+void Board::clean_reset() {
+    for (int i = 0; i < 64; i++) {
+        squares[i] = EMPTY;
     }
 }
 

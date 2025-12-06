@@ -60,6 +60,14 @@ build CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj: CXX_COMPILER__chess-e
   OBJECT_FILE_DIR = CMakeFiles\chess-engine.dir\engine\src
   TARGET_SUPPORT_DIR = CMakeFiles\chess-engine.dir
 
+build CMakeFiles/chess-engine.dir/engine/src/movegen.cpp.obj: CXX_COMPILER__chess-engine_unscanned_ D$:/Personal/Projects/Chess$ Project/chess_engine/engine/src/movegen.cpp || cmake_object_order_depends_target_chess-engine
+  DEP_FILE = CMakeFiles\chess-engine.dir\engine\src\movegen.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I"D:/Personal/Projects/Chess Project/chess_engine/engine/include"
+  OBJECT_DIR = CMakeFiles\chess-engine.dir
+  OBJECT_FILE_DIR = CMakeFiles\chess-engine.dir\engine\src
+  TARGET_SUPPORT_DIR = CMakeFiles\chess-engine.dir
+
 build CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj: CXX_COMPILER__chess-engine_unscanned_ D$:/Personal/Projects/Chess$ Project/chess_engine/engine/src/position.cpp || cmake_object_order_depends_target_chess-engine
   DEP_FILE = CMakeFiles\chess-engine.dir\engine\src\position.cpp.obj.d
   FLAGS = -std=gnu++17
@@ -76,7 +84,7 @@ build CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj: CXX_COMPILER__che
 #############################################
 # Link the executable chess-engine.exe
 
-build chess-engine.exe: CXX_EXECUTABLE_LINKER__chess-engine_ CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj
+build chess-engine.exe: CXX_EXECUTABLE_LINKER__chess-engine_ CMakeFiles/chess-engine.dir/engine/src/board.cpp.obj CMakeFiles/chess-engine.dir/engine/src/main.cpp.obj CMakeFiles/chess-engine.dir/engine/src/movegen.cpp.obj CMakeFiles/chess-engine.dir/engine/src/position.cpp.obj
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\chess-engine.dir
   POST_BUILD = cd .

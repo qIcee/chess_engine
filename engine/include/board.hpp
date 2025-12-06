@@ -9,6 +9,8 @@ struct Board {
     Piece get(int rank, int file) const;
     Piece get(int idx) const;
     void set(int rank, int file, Piece piece);
+    void set(int idx, Piece piece);
     void reset();
+    void clean_reset();
     void print() const;
 };

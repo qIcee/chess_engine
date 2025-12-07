@@ -144,3 +144,120 @@ void generate_king_moves(const Position& pos, int sq, Piece piece, std::vector<u
 
     // TODO: Castle
 }
+
+void generate_rook_moves(const Position& pos, int sq, Piece piece, std::vector<uint16_t>& out) {
+    const Board& board = pos.get_board();
+    int rank = sq / 8;
+    int file = sq % 8;
+    Color piece_color = is_white(piece) ? WHITE : BLACK;
+
+    for (int direction : ROOK_DIRS) {
+        int current_sq = sq;
+
+        while (true) {
+            current_sq += direction;
+            if (current_sq < 0 || current_sq >= 64) break;
+
+            int current_rank = current_sq / 8;
+            int current_file = current_sq % 8;
+
+            // Wraparound check
+            if (direction == EAST || direction == WEST) {
+                if (rank != current_rank) break;
+            }
+
+            Piece target = board.get(current_sq);
+
+            if (target == EMPTY) {
+                out.push_back(make_move(sq, current_sq, MoveType::QUIET));
+                continue;
+            }
+
+            if (!is_piece_of_side(target, piece_color)) {
+                out.push_back(make_move(sq, current_sq, MoveType::CAPTURE));
+            }
+            break;
+        }
+    }
+}
+
+void generate_bishop_moves(const Position& pos, int sq, Piece piece, std::vector<uint16_t>& out) {
+    const Board& board = pos.get_board();
+    int rank = sq / 8;
+    int file = sq % 8;
+    Color piece_color = is_white(piece) ? WHITE : BLACK;
+
+    for (int direction : BISHOP_DIRS) {
+        int current_sq = sq;
+
+        while (true) {
+            current_sq += direction;
+            if (current_sq < 0 || current_sq >= 64) break;
+
+            int current_rank = current_sq / 8;
+            int current_file = current_sq % 8;
+
+            // Wraparound check
+            if (abs(current_rank-rank) != abs(current_file-file)) break;
+
+            Piece target = board.get(current_sq);
+
+            if (target == EMPTY) {
+                out.push_back(make_move(sq, current_sq, MoveType::QUIET));
+                continue;
+            }
+
+            if (!is_piece_of_side(target, piece_color)) {
+                out.push_back(make_move(sq, current_sq, MoveType::CAPTURE));
+            }
+            break;
+        }
+    }
+}
+
+void generate_queen_moves(const Position& pos, int sq, Piece piece, std::vector<uint16_t>& out) {
+    const Board& board = pos.get_board();
+    int rank = sq / 8;
+    int file = sq % 8;
+    Color piece_color = is_white(piece) ? WHITE : BLACK;
+
+    for (int direction : QUEEN_DIRS) {
+        int current_sq = sq;
+
+        while (true) {
+            current_sq += direction;
+            if (current_sq < 0 || current_sq >= 64) break;
+
+            int current_rank = current_sq / 8;
+            int current_file = current_sq % 8;
+
+            // Wraparound check
+            bool is_diagonal = (direction == NORTH_EAST || direction == NORTH_WEST ||
+                    direction == SOUTH_EAST || direction == SOUTH_WEST);
+            bool is_horizontal = (direction == EAST || direction == WEST);
+            if (is_diagonal) {
+                if (abs(current_rank - rank) != abs(current_file - file)) break;
+            }
+            else if (is_horizontal) {
+                if (current_rank != rank) break;
+            }
+
+            Piece target = board.get(current_sq);
+
+            if (target == EMPTY) {
+                out.push_back(make_move(sq, current_sq, MoveType::QUIET));
+                continue;
+            }
+
+            if (!is_piece_of_side(target, piece_color)) {
+                out.push_back(make_move(sq, current_sq, MoveType::CAPTURE));
+            }
+            break;
+        }
+    }
+}
+
+
+
+
+

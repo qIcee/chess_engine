@@ -27,6 +27,19 @@ constexpr int KNIGHT_OFFSETS[8] = {
     -6, -10, -15, -17
 };
 
+constexpr int ROOK_DIRS[4] = {
+    NORTH, SOUTH, EAST, WEST
+};
+
+constexpr int BISHOP_DIRS[4] = {
+    NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
+};
+
+constexpr int QUEEN_DIRS[8] = {
+    NORTH, SOUTH, EAST, WEST,
+    NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
+};
+
 
 inline int to_square(int rank, int file) {
     return rank * 8 + file;

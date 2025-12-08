@@ -124,6 +124,7 @@ void generate_king_moves(const Position& pos, int sq, Piece piece, std::vector<u
     const Board& board = pos.get_board();
     int file = sq % 8;
     Color piece_color = is_white(piece) ? WHITE : BLACK;
+    Color enemy_color = is_white(piece) ? BLACK : WHITE;
 
     for (int offset: KING_OFFSETS) {
         int target_sq = sq + offset;
@@ -143,6 +144,53 @@ void generate_king_moves(const Position& pos, int sq, Piece piece, std::vector<u
     }
 
     // TODO: Castle
+    if (is_square_attacked(pos, sq, enemy_color)) return;
+
+    uint8_t cr = pos.get_castling_rights();
+
+    if (piece_color == WHITE) {
+        // White kingside castle
+        if (cr & WHITE_KINGSIDE) {
+            if (board.get(5) == EMPTY && board.get(6) == EMPTY) {
+                if (!is_square_attacked(pos, 5, enemy_color) && 
+                    !is_square_attacked(pos, 6, enemy_color)) {
+                    out.push_back(make_move(4, 6, MoveType::KING_CASTLE));
+                }
+            }
+        }
+        // White queenside castle
+         if (cr & WHITE_QUEENSIDE) {
+            if (board.get(3) == EMPTY && board.get(2) == EMPTY && board.get(1) == EMPTY) {
+                if (!is_square_attacked(pos, 3, enemy_color) &&
+                    !is_square_attacked(pos, 2, enemy_color)) {
+                    out.push_back(make_move(4, 2, MoveType::QUEEN_CASTLE));
+                }
+            }
+        }
+    }
+    else {
+        // Black kingside castle
+        if (cr & BLACK_KINGSIDE) {
+            if (board.get(61) == EMPTY && board.get(62) == EMPTY) {
+                if (!is_square_attacked(pos, 61, enemy_color) &&
+                    !is_square_attacked(pos, 62, enemy_color)) {
+                    out.push_back(make_move(60, 62, MoveType::KING_CASTLE));
+                }
+            }
+        }
+
+        // Black queenside castle
+        if (cr & BLACK_QUEENSIDE) {
+            if (board.get(59) == EMPTY &&
+                board.get(58) == EMPTY &&
+                board.get(57) == EMPTY) {
+                if (!is_square_attacked(pos, 59, enemy_color) &&
+                    !is_square_attacked(pos, 58, enemy_color)) {
+                    out.push_back(make_move(60, 58, MoveType::QUEEN_CASTLE));
+                }
+            }
+        }
+    }
 }
 
 void generate_rook_moves(const Position& pos, int sq, Piece piece, std::vector<uint16_t>& out) {
@@ -257,7 +305,50 @@ void generate_queen_moves(const Position& pos, int sq, Piece piece, std::vector<
     }
 }
 
+bool is_square_attacked(const Position& pos, int sq, Color side) {
+    const Board& board = pos.get_board();
+    Piece piece = board.get(sq);
+    Color piece_color = is_white(piece) ? WHITE : BLACK;
+    Color enemy_color = is_white(piece) ? BLACK : WHITE;
 
+    // Pawn attacks
+    if (enemy_color == WHITE) {
+        Piece se_sq = board.get(sq+SOUTH_EAST);
+        Piece sw_sq = board.get(sq+SOUTH_WEST);        
+        if (is_piece_of_side(se_sq, piece_color)) {
+            return true;
+        }
+        else if (is_piece_of_side(sw_sq, piece_color)) {
+            return true;
+        }
+    } else if (enemy_color == WHITE) {
+        Piece ne_sq = board.get(sq+NORTH_EAST);
+        Piece nw_sq = board.get(sq+NORTH_WEST);        
+        if (is_piece_of_side(ne_sq, piece_color)) {
+            return true;
+        }
+        else if (is_piece_of_side(nw_sq, piece_color)) {
+            return true;
+        }
+    }
+    
+    // Knight attacks
+    for (int offset : KNIGHT_OFFSETS) {
+        int target_sq = sq + offset;
+        Piece target = board.get(target_sq);
+        if (is_piece_of_side(target, enemy_color) && target == KNIGHT) {
+            return true;
+        }
+    }
+
+    // Bishop and queen attacks
+
+    for (int direction: BISHOP_DIRS) {
+
+    }
+    
+    return false;
+}
 
 
 

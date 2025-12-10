@@ -11,6 +11,9 @@ Piece Board::get(int rank, int file) const {
 }
 
 Piece Board::get(int idx) const {
+    if (idx < 0 || idx >= 64) {
+        return EMPTY;
+    }
     return squares[idx];
 }
 

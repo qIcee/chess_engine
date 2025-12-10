@@ -125,12 +125,28 @@ void test_white_en_passant() {
     print_moves(moves, "White pawn e5 en passant on d6");
 }
 
-int main() {
-    test_white_single_and_double_push();
-    test_white_blocked();
-    test_white_promotion_quiet();
-    test_white_promotion_capture();
-    test_white_en_passant();
+uint64_t perft(Position& pos, int depth) {
+    if (depth == 0) return 1;
 
+    std::vector<uint16_t> moves;
+    generate_legal_moves(pos, moves); 
+
+    uint64_t nodes = 0;
+
+    for (uint16_t m : moves) {
+        pos.do_move(m);
+        nodes += perft(pos, depth - 1);
+        pos.undo_move();
+    }
+
+    return nodes;
+}
+
+int main() {
+    Position pos;
+    pos.set_start_position();
+
+    uint64_t nodes = perft(pos, 5);
+    std::cout << nodes << std::endl;
     return 0;
 }

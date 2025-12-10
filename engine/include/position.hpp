@@ -1,6 +1,7 @@
 #pragma once
 #include "Board.hpp"
 #include "move.hpp"
+#include <vector>
 
 constexpr int NO_SQUARE = -1;
 
@@ -12,17 +13,25 @@ enum CastlingRights : uint8_t {
     
 };
 
-class Position {
+struct HistoryEntry {
+    uint16_t move;
+    Piece captured;
+    int prev_ep_sq;
+    uint8_t prev_castling;
+};
 
+class Position {
     private:
         Board board;
         Color side_to_move;
         int en_passant_sq;
         uint8_t castling_rights;
+        std::vector<HistoryEntry> history;
     public:
         Position();
 
-        void make_move(uint16_t move);
+        void do_move(uint16_t move);
+        void undo_move();
         void set_start_position();
         uint8_t get_castling_rights() const { return castling_rights; }
         bool can_castle(Color c, bool kingside) const;  
@@ -33,5 +42,10 @@ class Position {
         Board& get_board_ref();
         int get_ep_sq() const;
         void set_ep_sq(int sq);
+        void do_pawn_move(uint16_t move, Piece pawn, int from, int to, MoveType type);
+        void do_king_move(Piece king, int from, int to, MoveType type);
+        std::vector<HistoryEntry> get_history() const { return history; }
+        void push_history(HistoryEntry entry);
+        HistoryEntry pop_history();
     
 };

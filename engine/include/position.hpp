@@ -4,6 +4,9 @@
 #include <vector>
 
 constexpr int NO_SQUARE = -1;
+constexpr int MATE = 30000;
+constexpr int INF = 32000;
+constexpr uint16_t MOVE_NONE = 0;
 
 enum CastlingRights : uint8_t {
     WHITE_KINGSIDE = 1 << 0, // K
@@ -35,6 +38,7 @@ class Position {
         void set_start_position();
         uint8_t get_castling_rights() const { return castling_rights; }
         bool can_castle(Color c, bool kingside) const;  
+        bool in_check(Color side);
         void clean_position();
         void print() const;
         Color get_side() const;

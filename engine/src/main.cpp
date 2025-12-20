@@ -142,11 +142,109 @@ uint64_t perft(Position& pos, int depth) {
     return nodes;
 }
 
+int evaluate(const Position& pos) {
+    int white = 0, black = 0;
+    Board board = pos.get_board();
+    for (int sq = 0; sq < 64; sq++) {
+        Piece p = board.get(sq);
+        if (p == EMPTY) continue;
+
+        int v = piece_value(p);
+        if (is_white(p)) white += v;
+        else black += v;
+    }
+
+    int score_white_pov = white - black;
+
+    return (pos.get_side() == WHITE) ? score_white_pov : -score_white_pov;
+}
+
+int negamax(Position& pos, int depth, int alpha, int beta) {
+    if (depth == 0)
+        return evaluate(pos);
+
+    std::vector<uint16_t> moves;
+    generate_legal_moves(pos, moves);
+
+    if (moves.empty()) {
+        if (pos.in_check(pos.get_side()))
+            return -MATE;
+        else
+            return 0;
+    }
+
+    int best = -INF;
+
+    for (auto m : moves) {
+        pos.do_move(m);
+        int score = -negamax(pos, depth - 1, -beta, -alpha);
+        pos.undo_move();
+
+        if (score > best) best = score;
+        if (score > alpha) alpha = score;
+        if (alpha >= beta) break; // prune
+    }
+
+    return best;
+}
+
+uint16_t find_best_move(Position& pos, int depth) {
+    std::vector<uint16_t> moves;
+    generate_legal_moves(pos, moves);
+
+    uint16_t bestMove = MOVE_NONE;
+    int bestScore = -INF;
+
+    for (auto m : moves) {
+        pos.do_move(m);
+        int score = -negamax(pos, depth - 1, -INF, INF);
+        pos.undo_move();
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestMove = m;
+        }
+    }
+    return bestMove;
+}
+
+static std::string sq_to_str(int sq) {
+    char file = 'a' + (sq % 8);
+    char rank = '1' + (sq / 8);
+    return {file, rank};
+}
+
+static std::string move_to_str(uint16_t m) {
+    if (m == MOVE_NONE) return "MOVE_NONE";
+    return sq_to_str(from_sq(m)) + sq_to_str(to_sq(m));
+}
+
 int main() {
     Position pos;
     pos.set_start_position();
+    // If you have FEN support, prefer this:
+    // pos.set_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    pos.get_board_ref().set(16, Piece(13));
+    pos.get_board().print();
 
-    uint64_t nodes = perft(pos, 5);
-    std::cout << nodes << std::endl;
+    int depth = 4;
+
+    std::cout << "Searching depth " << depth << "...\n";
+
+    uint16_t best = find_best_move(pos, depth);
+
+    if (best == MOVE_NONE) {
+        std::cout << "No legal moves (mate or stalemate)\n";
+        return 0;
+    }
+
+    std::cout << "Best move: " << move_to_str(best) << "\n";
+
+    // Optional: apply the move and print side to move
+    pos.do_move(best);
+    std::cout << "Side to move after move: "
+              << (pos.get_side() == WHITE ? "White" : "Black")
+              << "\n";
+
     return 0;
 }

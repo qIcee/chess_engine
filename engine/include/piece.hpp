@@ -23,6 +23,26 @@ enum PieceType : uint8_t {
     KING
 };
 
+inline int piece_value(Piece p) {
+    switch (p) {
+        case WP: return 100;
+        case WN: return 320;
+        case WB: return 330;
+        case WR: return 500;
+        case WQ: return 900;
+        case WK: return 0;
+
+        case BP: return 100;
+        case BN: return 320;
+        case BB: return 330;
+        case BR: return 500;
+        case BQ: return 900;
+        case BK: return 0;
+
+        default: return 0; // EMPTY
+    }
+}
+
 inline bool is_white(Piece piece) {
     return piece >= WP && piece <= WK;
 }

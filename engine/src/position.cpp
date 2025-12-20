@@ -1,4 +1,5 @@
 #include "position.hpp"
+#include "attacks.hpp"
 #include <iostream>
 
 Position::Position() : side_to_move(WHITE) {}
@@ -274,6 +275,13 @@ bool Position::can_castle(Color c, bool king_side) const {
     else 
         return king_side ? (castling_rights & BLACK_KINGSIDE) : (castling_rights & BLACK_QUEENSIDE);
 }
+
+bool Position::in_check(Color side) {
+    int kingSq = find_king_square(*this, side);
+    Color them = (side == WHITE ? BLACK : WHITE);
+    return is_square_attacked(*this, kingSq, them);
+}
+
 
 void Position::clean_position() {
     board.clean_reset();
